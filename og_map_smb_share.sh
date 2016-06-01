@@ -21,7 +21,7 @@ if [ "$accountType" -lt "1000" ]; then
 fi
 ​
 # Checks Group Membership for ADGroups contains user & if they -- are in the correct groups, mount shares.
-if grep -q AD_domain <<<$nodeName; then
+if grep -q HPS <<<$nodeName; then
     osascript -e 'mount volume "smb://hplnmdtbldp01/maclogs"'
 else
 	echo "No dice"
