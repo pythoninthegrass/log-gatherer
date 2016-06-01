@@ -4,6 +4,7 @@
 # Diags Logs - Abbreviated
 # Avoids running sysdiagnose creating a 20+ MB file.
 
+loggedInUser=$(whoami)
 HOST=$(hostname)
 D=$(date +%Y%m%d-%H%M)
 
@@ -32,6 +33,7 @@ fi
 # Copy all kernel panics from last 3 days
 cd /Library/Logs/DiagnosticReports/
 find . -name "*.*" -mtime -3 -exec cp -r {} /usr/local/logs/KernelDiagnosticReports_$D \;
+sudo chown -Rv $loggedInUser /usr/local/logs/KernelDiagnosticReports_*
 
 # JSS logs
 if [ -f "/var/log/jamf.log" ]; then
@@ -41,7 +43,7 @@ fi
 # Compress contents
 cd /usr/local/logs/
 tar -zcvf /usr/local/"$HOST"_logs_"$D".tar.gz *
-sudo chown -Rv `whoami` *.tar.gz
+cd /usr/local/ && sudo chown -Rv $loggedInUser *.tar.gz
 
 # Copy logs to maclogs share
 if [ ! -e /Volumes/maclogs/"$HOST"/"$D"/ ]; then
