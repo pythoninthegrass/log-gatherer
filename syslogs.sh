@@ -1,16 +1,19 @@
 #!/bin/bash
 
-
 # Diags Logs - Abbreviated
+# Bash script by Lance Stephens 6-2-16
 # Avoids running sysdiagnose creating a 20+ MB file.
 
-loggedInUser=$(whoami)
+
+# loggedInUser=$(whoami)
+loggedInUser=$(ls -l /dev/console | cut -d " " -f 4)
 HOST=$(hostname)
 D=$(date +%Y%m%d-%H%M)
 
 # One folder to rule them all
 if [ ! -e "/usr/local/logs/" ]; then
     sudo mkdir -p /usr/local/logs/
+    sudo chown -Rv $loggedInUser /usr/local/logs/
 fi
 
 # System Profiler
@@ -46,7 +49,7 @@ tar -zcvf /usr/local/"$HOST"_logs_"$D".tar.gz *
 cd /usr/local/ && sudo chown -Rv $loggedInUser *.tar.gz
 
 # Copy logs to maclogs share
-if [ ! -e /Volumes/maclogs/"$HOST"/"$D"/ ]; then
+if [ ! -e "/Volumes/*maclogs*"/"$HOST"/"$D"/ ]; then
     sudo mkdir -p /Volumes/maclogs/"$HOST"/"$D"/
 fi
 cp /usr/local/"$HOST"_logs_"$D".tar.gz /Volumes/maclogs/"$HOST"/"$D"/
