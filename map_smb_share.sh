@@ -37,6 +37,7 @@ else
 fi
 
 # Call syslogs.sh
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# Commented out for JSS
+# DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # echo $DIR
-bash -vx $DIR/syslogs.sh
+# bash -vx $DIR/syslogs.sh
