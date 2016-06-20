@@ -33,6 +33,7 @@ pmset -g everything > /usr/local/logs/pmset_"$D".log
 if [ ! -e "/usr/local/logs/KernelDiagnosticReports_$D/" ]; then
     sudo mkdir -p /usr/local/logs/KernelDiagnosticReports_$D/
 fi
+
 # Copy all kernel panics from last 3 days
 cd /Library/Logs/DiagnosticReports/
 find . -name "*.*" -mtime -3 -exec cp -r {} /usr/local/logs/KernelDiagnosticReports_$D \;
